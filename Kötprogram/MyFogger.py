@@ -28,6 +28,7 @@ text_rect = pygame.Rect(300, 0, 48, 50)
 direction = 1
 speed_x = 5
 speed_y = 4
+test = (1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
 
 #Hatterkep betoltese
 background_filename ='./kepek/bg.jpg'
@@ -115,6 +116,7 @@ class Autos(Enemy):
             
 def main():
     
+    Ido = 0
     Points = 0
     is_connected = False
     
@@ -124,7 +126,7 @@ def main():
     
     while run:
                 
-        clock.tick(FPS)
+        clock.tick(60)
         
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -142,17 +144,25 @@ def main():
                     Frog_rect.y -= VEL
                 if event.key == K_s:
                     Frog_rect.y += VEL 
-
+                    
         if Auto1_rect.x > -100:
             Auto1_rect.x += VEL
+        elif Auto1_rect.x > 400:
+            Auto1.get_rect()
         if Auto2_rect.x < 890:
             Auto2_rect.x -= VEL
+        elif Auto2_rect.x < 400:
+            Auto2.get_rect()
         if Auto3_rect.x > -100:
             Auto3_rect.x += VEL
         if Auto4_rect.x < 890:
             Auto4_rect.x -= VEL
+        elif Auto4_rect.x < 400:
+            Auto4.get_rect()
         if Auto5_rect.x > -100:
-            Auto5_rect.x += VEL          
+            Auto5_rect.x += VEL
+        elif Auto5_rect.x > 400:
+            Auto5.get_rect()
             
         if Auto1_rect.colliderect(Frog_rect) and (is_connected == False):
             is_connected = True
@@ -180,6 +190,14 @@ def main():
         pont_szamlalo_rect = pont_szamlalo.get_rect()
         pont_szamlalo_rect.x = 50
         pont_szamlalo_rect.y = 70
+        
+        if FPS == 60:
+            Ido += 0.02
+            
+        ido_szamlalo = font.render(f'Time: {Ido}', True, RED)
+        ido_szamlalo_rect = ido_szamlalo.get_rect()
+        ido_szamlalo_rect.x = 700
+        ido_szamlalo_rect.y = 70
               
         #Dolgok megjelenítése
         WIN.fill(WHITE)
@@ -201,6 +219,8 @@ def main():
         WIN.blit(Auto5, (Auto5_rect.x, Auto5_rect.y))
         
         WIN.blit(pont_szamlalo, (pont_szamlalo_rect.x, pont_szamlalo_rect.y))
+        
+        WIN.blit(ido_szamlalo, (ido_szamlalo_rect.x, ido_szamlalo_rect.y))
         
         pygame.display.update()                 
         
